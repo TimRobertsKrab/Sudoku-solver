@@ -39,7 +39,7 @@ namespace SudokuSolver {
             textBoxes.Add(textBox81);
         }
 
-        private void InitialiseCells() {
+        private bool InitialiseCells() {
             cells = new Cell[9, 9];
             for (int i = 0; i < 9; i++) {
                 for (int j = 0; j < 9; j++) {
@@ -51,10 +51,24 @@ namespace SudokuSolver {
                     }
                 }
             }
+            for (int i = 0; i < 9; i++){
+                for (int j = 0; j < 9; j++){
+                    if (cells[i,j].GetIsFixed()){
+                        if (Algorithm.ViolationCheck(cells,i,j)){
+                            textBoxes[i*9+j].BackColor = Color.Red;
+                            return false;
+                        }
+                    }
+                }
+
+            }
+            return true;
         }
         
         private void SolveButton_Click(object sender, EventArgs e) { 
-            InitialiseCells();
+            if (!InitialiseCells()){
+                return;
+            }
             if (Algorithm.Run(cells,0,0)){
                 for (int i = 0; i < 9; i++) {
                     for (int j = 0; j < 9; j++) {
@@ -79,6 +93,7 @@ namespace SudokuSolver {
             for (int i = 0; i < 81; i++) {
                 textBoxes[i].Enabled = true;
                 textBoxes[i].Text = "";
+                textBoxes[i].BackColor = Color.White;
             }
         }
     }

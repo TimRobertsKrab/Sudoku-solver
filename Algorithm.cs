@@ -51,9 +51,6 @@ namespace SudokuSolver {
                 cells[y,x].SetValue(1);
             }
             else{
-                if (ViolationCheck(cells,y,x)){
-                    return false;
-                }
                 x++;
                 if (x>8){
                     x = 0;
@@ -89,7 +86,7 @@ namespace SudokuSolver {
             return false;
         } 
 
-        private static bool ViolationCheck(Cell[,] cells,int y, int x) {
+        public static bool ViolationCheck(Cell[,] cells,int y, int x) {
             byte value = cells[y,x].GetValue();
             //Check for row violation
             for (int j = 0; j < 9; j++) {
