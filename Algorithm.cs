@@ -51,6 +51,9 @@ namespace SudokuSolver {
                 cells[y,x].SetValue(1);
             }
             else{
+                if (ViolationCheck(cells,y,x)){
+                    return false;
+                }
                 x++;
                 if (x>8){
                     x = 0;
