@@ -6,45 +6,6 @@ using System.Threading.Tasks;
 
 namespace SudokuSolver {
     static class Algorithm {
-        
-        public static void Run(Cell[,] cells) {
-            bool backTrack = false;
-            for (int i = 0; i < 9; i++) {
-                for(int j = 0; j < 9; j++) {
-                    if (backTrack) {
-                        while (cells[i, j].GetIsFixed() || cells[i,j].GetValue() == 9) {
-                            if (!cells[i, j].GetIsFixed()) {
-                                cells[i, j].SetValue(0);
-                            }
-                            j--;
-                            if (j < 0) {
-                                i--;j = 8;
-                            }                       
-                        }
-                        backTrack = false;
-                    }
-                    else if (cells[i, j].GetIsFixed()) {
-                        continue;
-                    }
-
-                    if (cells[i, j].GetValue() < 9) {
-                        cells[i, j].IncrementValue();
-                    }
-                    while (ViolationCheck(cells,i,j)) {
-                        if (cells[i,j].GetValue() >= 9) {
-                            cells[i, j].SetValue(0);
-                            backTrack = true;
-                            j -= 2;
-                            if (j+1 < 0) {
-                                i--;j = 7;
-                            }
-                            break;
-                        }
-                        cells[i, j].IncrementValue();
-                    }
-                }
-            }
-        }    
 
         public static bool Run(Cell[,] cells ,int y, int x){
             if (!cells[y,x].GetIsFixed()){
