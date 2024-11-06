@@ -12,6 +12,8 @@ namespace SudokuSolver {
             this.isFixed = isFixed;
         }
         public void IncrementValue() {
+            if (this.isFixed)
+            throw new Exception("Fixed cell can't be changed");
             value++;
         }
         public void SetValue(byte v) {

@@ -55,13 +55,22 @@ namespace SudokuSolver {
         
         private void SolveButton_Click(object sender, EventArgs e) { 
             InitialiseCells();
-            Algorithm.Run(cells);
-            for (int i = 0; i < 9; i++) {
-                for (int j = 0; j < 9; j++) {
-                    if (!cells[i, j].GetIsFixed()) {
-                        textBoxes[i * 9 + j].Text = Convert.ToString(cells[i, j].GetValue());
+            if (Algorithm.Run(cells,0,0)){
+                for (int i = 0; i < 9; i++) {
+                    for (int j = 0; j < 9; j++) {
+                        if (!cells[i, j].GetIsFixed()) {
+                            textBoxes[i * 9 + j].Text = Convert.ToString(cells[i, j].GetValue());
+                        }
+                        textBoxes[i * 9 + j].Enabled = false;
                     }
-                    textBoxes[i * 9 + j].Enabled = false;
+                }
+            }
+            else{
+                for (int i = 0; i < 9; i++) {
+                    for (int j = 0; j < 9; j++) {
+                        textBoxes[i * 9 + j].Text = "0";
+                        textBoxes[i * 9 + j].Enabled = false;
+                    }
                 }
             }
         }
