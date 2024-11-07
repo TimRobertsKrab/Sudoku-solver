@@ -8,27 +8,23 @@ namespace SudokuSolver {
     static class Algorithm {
 
         public static bool Run(Cell[,] cells ,int y, int x){
-            if (!cells[y,x].GetIsFixed()){
-                cells[y,x].SetValue(1);
-            }
-            else{
-                x++;
-                if (x>8){
-                    x = 0;
-                    y++;
-                }
-                if (y > 8){
-                    return true;
-                }
-                return Run(cells,y,x);
-            }
-            int newx = x;
+            int newx = x+1;
             int newy = y;
-            newx++;
             if (newx>8){
                 newx = 0;
                 newy++;
             }
+
+            if (!cells[y,x].GetIsFixed()){
+                cells[y,x].SetValue(1);
+            }
+            else{
+                if (newy > 8){
+                    return true;
+                }
+                return Run(cells,newy,newx);
+            }
+            
             while (cells[y,x].GetValue() <= 9){
                 if (!ViolationCheck(cells,y,x)){
                     
