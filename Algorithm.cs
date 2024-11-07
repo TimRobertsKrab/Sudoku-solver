@@ -6,8 +6,11 @@ using System.Threading.Tasks;
 
 namespace SudokuSolver {
     static class Algorithm {
-
+        static int iterations = 0;
         public static bool Run(Cell[,] cells ,int y, int x){
+            if (iterations >= 100000){
+                return false;
+            }
             int newx = x+1;
             int newy = y;
             if (newx>8){
@@ -38,7 +41,7 @@ namespace SudokuSolver {
                 }
                 cells[y,x].IncrementValue();
             }
-            
+            ++iterations;
             cells[y,x].SetValue(0);
             return false;
         } 
