@@ -6,9 +6,10 @@ using System.Threading.Tasks;
 
 namespace SudokuSolver {
     static class Algorithm {
+        const int MAX_ITERATIONS = 1000000;
         static int iterations = 0;
         public static bool Run(Cell[,] cells ,int y, int x){
-            if (iterations >= 100000){
+            if (iterations >= MAX_ITERATIONS){
                 return false;
             }
             int newx = x+1;
